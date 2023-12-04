@@ -5,6 +5,7 @@ $$
 f(x)=\frac{1}{\sigma \sqrt{2\pi}}\cdot e^{-\frac{1}{2} (\frac{x-\mu}{\sigma})^2}
 $$
 
+---
 <div style={{ textAlign: 'justify' }}>
 
 ## Dart thought experiment
@@ -17,7 +18,10 @@ The dart thought experiment is a conceptual way to understand the derivation of 
     
 3.  **Radial Symmetry and Distance**: The probability of a dart landing at a particular point should only depend on the distance of that point from the center, not the direction. This radial symmetry suggests that the probability density at any point depends only on the distance from the mean, not the specific x and y values.
 
+In this notebook, first we will try to simulate the dart experiment and then derive the pdf of normal distribution.
 </div>
+
+---
 
 ## Simulation
 
@@ -42,10 +46,8 @@ plt.scatter(0,0,marker='*', color='r',s=70,label='Target')
 plt.plot([0,2.15], [0, 0.88], linestyle=':', color='red',label='radial distance')
 
 
-# Arguments: (x, y) lower left corner, width, height
 square = patches.Rectangle((2.10, 0.83), 0.3, 0.3, fill=False, color='red')  # A small square
 
-# Get current axis and add patch
 plt.gca().add_patch(square)
 
 plt.annotate('dx',xy=(2.07, 0.4),xytext=(2.07, 0.4),fontsize=7)
@@ -68,7 +70,7 @@ plt.show()
 ![png](pdf_derivation_files/pdf_derivation_3_0.png)
     
 
-
+---
 ## Derivation of probability density function
 
 ### Main: Part 1 
@@ -164,7 +166,7 @@ then,
 $$I^2=\left(\int_{-\infty}^{\infty} e^{-x^2} \cdot dx\right)\cdot\left(\int_{-\infty}^{\infty} e^{-y^2} \cdot dy\right)$$
 In terms of $x$ and $y$, this can be expressed as a double integral over the entire plane:
 $$I^2=\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} e^{-(x^2+y^2)} \cdot dx \cdot dy$$
-Switch from Cartesian coordinates $(x,y)$ to polar coordinates $(r,\theta)$. In polar coordinates, $x^2+y^2=r^2$ and $dx dy=r dr d\theta$.[[How?]]() 
+Switch from Cartesian coordinates $(x,y)$ to polar coordinates $(r,\theta)$. In polar coordinates, $x^2+y^2=r^2$ and $dx dy=r dr d\theta$.[[How?]](../math_stat/Mathematics/cartesian_to_polar.md) 
 
 The limits for $r$ will be from $0$ to $\infty$, and for $\theta$, from $0$ to $2\pi$.
 $$\implies I^2=\int_{0}^{2\pi} \int_{0}^{\infty} e^{-r^2} \cdot r \cdot dr \cdot d\theta$$
@@ -247,3 +249,10 @@ If $\mu_X$ is different from zero then in our derivation all $x's$ will be repla
 $$
 f(x)=\frac{1}{\sigma\sqrt{2\pi}}\cdot e^{-\frac{1}{2}\left(\frac{x-\mu}{ \sigma}\right)^2} \qquad \qquad \blacksquare
 $$
+
+---
+## References
+
+https://www.youtube.com/watch?v=N-bI-Dsm-rw&t=1177s&ab_channel=MolloyMaths
+
+https://www.integral-calculator.com/
