@@ -1,27 +1,27 @@
-# Normal distribution pdf derivation
+# Normal distribution PDF derivation
+[GitHub repository](https://github.com/milindv26/Normal_PDF_derivation)
 
-Derive:
+**In this Jupyter notebook, we will derive the pdf of normal distribution using Dart thought experiment.**
+
+PDF:
 $$
 f(x)=\frac{1}{\sigma \sqrt{2\pi}}\cdot e^{-\frac{1}{2} (\frac{x-\mu}{\sigma})^2}
 $$
 
 ---
-<div style={{ textAlign: 'justify' }}>
 
 ## Dart thought experiment
+
+<div style={{ textAlign: 'justify' }}>
 
 The dart thought experiment is a conceptual way to understand the derivation of the probability density function (PDF) of a normal distribution, often known as a Gaussian distribution. Here's an explanation of the thought experiment:
 
 1.  **Dartboard Analogy**: Imagine a dartboard where darts are thrown randomly. Assume that the darts are more likely to hit near the center of the board and less likely to hit as you move away from the center. This setup is analogous to a random variable with a normal distribution, where values near the mean are more likely than values far from the mean.
     
-2.  **Two-Dimensional Distribution**: The dartboard as a two-dimensional space with the center representing the mean of the distribution. The x and y coordinates of where the dart hits can be thought of as two independent normally distributed random variables, each with its own mean and standard deviation.
+2.  **Two-Dimensional Distribution**: Consider the dartboard as a two-dimensional space with the center representing the mean of the distribution. The x and y coordinates of where the dart hits can be thought of as two independent normally distributed random variables, each with its own mean and standard deviation.
     
 3.  **Radial Symmetry and Distance**: The probability of a dart landing at a particular point should only depend on the distance of that point from the center, not the direction. This radial symmetry suggests that the probability density at any point depends only on the distance from the mean, not the specific x and y values.
-
-In this notebook, first we will try to simulate the dart experiment and then derive the pdf of normal distribution.
 </div>
-
----
 
 ## Simulation
 
@@ -70,6 +70,7 @@ plt.show()
 ![png](pdf_derivation_files/pdf_derivation_3_0.png)
     
 
+
 ---
 ## Derivation of probability density function
 
@@ -77,7 +78,7 @@ plt.show()
 
 Consider a function $\phi$ which takes $x$ and $y$ coordinates and spits out the probability that the Dart shot would be in the area $dA=dx.dy$.
 
-$\phi: \mathbb{R}\times \mathbb{R} \rightarrow [0,1] \equiv \phi: r \rightarrow [0,1]$, where $r$ is the polar coordinate.
+$\phi: (x,y) \rightarrow [0,1] \equiv \phi: r \rightarrow [0,1]$, where $r$ is the polar coordinate of $(x,y)$.
 
 $$
 \int_{S}\phi(r)\cdot dA = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} \phi(r)\cdot dx \cdot dy = 1
@@ -109,14 +110,14 @@ $$
 Divide the last equation by $\lambda^2$, we get
 $$
 \begin{align*}
-&\implies \frac{f_X(\sqrt{x^2 + y^2})}{\lambda} = \frac{f_X(x)}{\lambda}\cdot \frac{f_Y(y)}{\lambda}.
+&\frac{f_X(\sqrt{x^2 + y^2})}{\lambda} = \frac{f_X(x)}{\lambda}\cdot \frac{f_Y(y)}{\lambda}.
 \end{align*}
 $$
 Assume that both the random variables, $X$ and $Y$, have same mean and standard deviation.
 $\implies f_X(.)=f_Y(.)=f(.)$ and the above equation can be written as,
 $$
 \begin{align*}
-&\implies \frac{f(\sqrt{x^2 + y^2})}{\lambda} = \frac{f(x)}{\lambda}\cdot \frac{f(y)}{\lambda}.
+&\frac{f(\sqrt{x^2 + y^2})}{\lambda} = \frac{f(x)}{\lambda}\cdot \frac{f(y)}{\lambda}.
 \end{align*}
 $$
 Let $g(x)=\frac{f(x)}{\lambda}$,
@@ -133,7 +134,9 @@ Consider the following observations:
 * $n^x \cdot n^y = n^{(x+y)}$
 * $n^{x^2} \cdot n^{y^2} = n^{(x^2+y^2)}$
 * Let $g(x)=e^{kx^2}$
-$$\implies g(x)\cdot g(y)=e^{kx^2}\cdot e^{ky^2}=e^{k(x^2+y^2)}=g(\sqrt{x^2+y^2})$$
+$$
+\implies g(x)\cdot g(y)=e^{kx^2}\cdot e^{ky^2}=e^{k(x^2+y^2)}=g(\sqrt{x^2+y^2})
+$$
 
 ### Main: Part 2
 
@@ -145,12 +148,18 @@ $$
 \end{align*}
 $$
 *Note:* $k$ has to be negative otherwise $f(x)$ would be an increasing function of $x$ as we have assumed that darts are more likely to hit the center of the board. To ensure $k$ to be negative, we set $k=-m^2, \forall m \in \mathbb{R}$.
-$$\implies f(x)=\lambda e^{-m^2x^2}.$$
+$$
+\implies f(x)=\lambda e^{-m^2x^2}.
+$$
 
 Since $f(x)$ is a pdf,
-$$\int_{-\infty}^{\infty}f(x) \cdot dx = \int_{-\infty}^{\infty}\lambda e^{-m^2x^2} \cdot dx=1$$
+$$
+\int_{-\infty}^{\infty}f(x) \cdot dx = \int_{-\infty}^{\infty}\lambda e^{-m^2x^2} \cdot dx=1
+$$
 Let $u=mx$, $\implies du=mdx$,
-$$\int_{-\infty}^{\infty}\lambda e^{-m^2x^2} \cdot dx = \frac{\lambda}{m}\int_{-\infty}^{\infty} e^{-u^2} \cdot du =1$$
+$$
+\int_{-\infty}^{\infty}\lambda e^{-m^2x^2} \cdot dx = \frac{\lambda}{m}\int_{-\infty}^{\infty} e^{-u^2} \cdot du =1
+$$
 
 ### Aside: Tricky integral
 
@@ -161,22 +170,36 @@ We will use two ways to calculate above integral, analytical and numerical.
 #### Analytical
 
 Consider
-$$I=\int_{-\infty}^{\infty} e^{-u^2} \cdot du,$$
+$$
+I=\int_{-\infty}^{\infty} e^{-u^2} \cdot du,
+$$
 then,
-$$I^2=\left(\int_{-\infty}^{\infty} e^{-x^2} \cdot dx\right)\cdot\left(\int_{-\infty}^{\infty} e^{-y^2} \cdot dy\right)$$
+$$
+I^2=\left(\int_{-\infty}^{\infty} e^{-x^2} \cdot dx\right)\cdot\left(\int_{-\infty}^{\infty} e^{-y^2} \cdot dy\right)
+$$
 In terms of $x$ and $y$, this can be expressed as a double integral over the entire plane:
-$$I^2=\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} e^{-(x^2+y^2)} \cdot dx \cdot dy$$
+$$
+I^2=\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} e^{-(x^2+y^2)} \cdot dx \cdot dy
+$$
 Switch from Cartesian coordinates $(x,y)$ to polar coordinates $(r,\theta)$. In polar coordinates, $x^2+y^2=r^2$ and $dx dy=r dr d\theta$.[[How?]](../math_stat/Mathematics/cartesian_to_polar.md) 
 
 The limits for $r$ will be from $0$ to $\infty$, and for $\theta$, from $0$ to $2\pi$.
-$$\implies I^2=\int_{0}^{2\pi} \int_{0}^{\infty} e^{-r^2} \cdot r \cdot dr \cdot d\theta$$
+$$
+\implies I^2=\int_{0}^{2\pi} \int_{0}^{\infty} e^{-r^2} \cdot r \cdot dr \cdot d\theta
+$$
 
 * Step 1: Calculate $\int_{0}^{\infty} e^{-r^2} \cdot r \cdot dr$
   Substitute $r^2=u$, we get $du=2rdr$ and :
-  $$\frac{1}{2}\int_{0}^{\infty} e^{-u} \cdot du =\frac{1}{2}-e^{-u}\Bigr|_{0}^{\infty}=\frac{1}{2}[0-(-1)]=\frac{1}{2}$$
+  $$
+  \frac{1}{2}\int_{0}^{\infty} e^{-u} \cdot du =\frac{1}{2}-e^{-u}\Bigr|_{0}^{\infty}=\frac{1}{2}[0-(-1)]=\frac{1}{2}
+  $$
 * Step 2: Calculate $I^2=\int_{0}^{2\pi} \frac{1}{2} \cdot d\theta:$
-  $$I^2 = \frac{1}{2}\theta\Bigr|_{0}^{2\pi}=\pi $$
-  $$\implies I=\sqrt{\pi}$$
+  $$
+  I^2 = \frac{1}{2}\theta\Bigr|_{0}^{2\pi}=\pi
+  $$
+  $$
+  \implies I=\sqrt{\pi}
+  $$
 
 #### Numerical
 
@@ -250,9 +273,4 @@ $$
 f(x)=\frac{1}{\sigma\sqrt{2\pi}}\cdot e^{-\frac{1}{2}\left(\frac{x-\mu}{ \sigma}\right)^2} \qquad \qquad \blacksquare
 $$
 
----
 ## References
-
-https://www.youtube.com/watch?v=N-bI-Dsm-rw&t=1177s&ab_channel=MolloyMaths
-
-https://www.integral-calculator.com/
